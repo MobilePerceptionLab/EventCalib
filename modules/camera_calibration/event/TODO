@@ -1,0 +1,28 @@
+1. landmarks are fixed. so we can use continuous time representation not frame to calculate RPE.
+No time epsilon needed in spline.
+
+2. EventFrame is used for initialization. Frame need a duration to accumulate.
+
+3. How to filter out event? noise event? outliers? Duplicate?
+
+
+# TODO: read rolling shutter camera paper; create front end process events with pattern;
+# 1. corner detected (hoof transform); traditional calibration process to get an init guess
+# 2. multi-spline (extend when detect un-smooth) optmization
+# opt: a event's reprojection error w.r.t (circle center + radius), (time uncentery of event:10^-6 ~ 10^-3, a guassian distribution?, to be checked, will determine what?)
+
+
+
+TODO:
+1. do cluster to find point set for positive and negtive frame.
+2. calculate convex hull, then do convex hull symetric score, find out circles
+
+
+****
+*There are circles only have measurements on one side, we should use the prior of pattern to fix that after most circle detected
+so we shouldn't delete noise.
+
+*next step, two choice:
+1. calculate convex hull, find out candidate circles, then do pattern match, after that re-explore the raw measurements.
+
+2. directly apply pattern prior to point clusters, match pattern

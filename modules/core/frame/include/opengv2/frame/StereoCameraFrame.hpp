@@ -1,0 +1,10 @@
+//
+// Created by huangkun on 2020/1/12.
+//
+
+#ifndef OPENGV2_STEREOCAMERAFRAME_HPP
+#define OPENGV2_STEREOCAMERAFRAME_HPP
+
+// TODO: StereoCameraFrame
+
+#endif //OPENGV2_STEREOCAMERAFRAME_HPP

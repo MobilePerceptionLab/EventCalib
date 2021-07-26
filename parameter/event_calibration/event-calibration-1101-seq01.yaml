@@ -1,0 +1,111 @@
+%YAML:1.0
+#--------------------------------------------------------------------------------------------
+# Data Parameters
+#--------------------------------------------------------------------------------------------
+# time where to begin (second)
+StartTime: 5
+
+EndTime: 10
+
+# smallest time step, need to be tuned w.r.t virtual frame image
+# ('image_' in CirclesEventFrame->extractFeatures(), disable multithreading when debugging)
+MotionTimeStep: 5e-4
+
+# maximum event limit in a virtual frame, need to be tuned w.r.t virtual frame image
+FrameEventNumThreshold: 4000
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters. Adjust them!
+#--------------------------------------------------------------------------------------------
+Camera.width: 346
+Camera.height: 260
+
+#--------------------------------------------------------------------------------------------
+# Pattern Parameters, we use circle pattern
+#--------------------------------------------------------------------------------------------
+Is_Pattern_Asymmetric: 1
+
+BoardSize_Rows: 9
+BoardSize_Cols: 4
+
+# The size of a square in some user defined metric system (must be in cm, since it's assumed in velocity check)
+Square_Size: 5.5
+
+# circles_radius (cm)
+Circles_Radius: 1.75
+
+#--------------------------------------------------------------------------------------------
+# OpenCV Calibration (Initialization) Parameters
+#--------------------------------------------------------------------------------------------
+Calibrate_NrOfFrameToUse: 200
+
+Calibrate_UseFisheyeModel: 0
+
+# Consider only fy as a free parameter, the ratio fx/fy stays the same as in the input cameraMatrix.
+# Use or not setting. 0 - False Non-Zero
+Calibrate_FixAspectRatio: 1
+
+# If true (non-zero) tangential distortion coefficients are set to zeros and stay zero
+Calibrate_AssumeZeroTangentialDistortion: 1
+
+# If true (non-zero) the principal point is not changed during the global optimization.
+Calibrate_FixPrincipalPointAtTheCenter: 1
+
+# If true (non-zero) distortion coefficient k* will be equals to zero.
+Fix_K1: 0
+Fix_K2: 0
+Fix_K3: 0
+Fix_K4: 1
+Fix_K5: 1
+
+#--------------------------------------------------------------------------------------------
+# circle extraction parameters
+#--------------------------------------------------------------------------------------------
+# pixel unit
+dbscan_eps: 4
+
+dbscan_startMinSample: 2
+clusterMinSample: 5
+
+# k nearest neighbor for circle matching, only valid when fitCircle is true
+knn_num: 3
+
+# check circle fit or not, when there are lots of noise, set to false(0)
+fitCircle: 0
+
+#--------------------------------------------------------------------------------------------
+# Spline Parameters
+#--------------------------------------------------------------------------------------------
+# use SO3 spline for rotation, if not the speed will two times faster,
+#  but the precision will be a bit lower for situation with much rotation changing
+useSO3: 0
+
+reduceMap: 0
+
+#--------------------------------------------------------------------------------------------
+# Viewer Parameters
+#--------------------------------------------------------------------------------------------
+Viewer.KeyFrameSize: 0.1
+Viewer.KeyFrameLineWidth: 1
+Viewer.GraphLineWidth: 2
+Viewer.PointSize: 5
+Viewer.CameraSize: 0.15
+Viewer.CameraLineWidth: 2
+Viewer.ViewpointX: 0
+Viewer.ViewpointY: -10
+Viewer.ViewpointZ: -0.1
+Viewer.ViewpointF: 2000
+Viewer.Facing: [ 1,0,0,0,1,0,0,0,1 ]
+
+#--------------------------------------------------------------------------------------------
+# DEBUG: for tuning time shift w.r.t GT
+#--------------------------------------------------------------------------------------------
+shiftTime: 0.1
+
+#--------------------------------------------------------------------------------------------
+# Estimated Extrinsic parameter
+# Qbs: x,y,z,w
+#--------------------------------------------------------------------------------------------
+calculateTbs: 1 # whether optimize in hand-eye calibration
+Qbs: [ 0, 0, 0, 1 ]
+tbs: [ 0,0,0 ]
