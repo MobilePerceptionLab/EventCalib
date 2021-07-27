@@ -282,7 +282,7 @@ namespace opengv2 {
                       rSpanIdx(rSpanIdx), tSpanIdx(tSpanIdx), splineIdx(splineIdx) {}
 
             const Eigen::Vector2d obs;
-            const Eigen::Vector3d &lm;
+            const Eigen::Vector3d lm;
             std::shared_ptr<std::vector<std::vector<double>>> rBasis;
             std::shared_ptr<std::vector<std::vector<double>>> tBasis;
             size_t rSpanIdx;

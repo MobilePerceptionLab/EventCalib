@@ -17,10 +17,8 @@ opengv2::EventCalibSpline::EventCalibSpline(opengv2::MapBase::Ptr map, opengv2::
           circleRadius_(circleRadius), reduceMap_(reduceMapb) {
     relationContainer_.clear();
     /** detect long-time gaps **/
-    std::vector<vectorofEigenMatrix < Eigen::Vector3d>>
-    twbSets;
-    std::vector<vectorofEigenMatrix < Sophus::SO3d>>
-    QwbSO3Sets;
+    std::vector<vectorofEigenMatrix<Eigen::Vector3d>> twbSets;
+    std::vector<vectorofEigenMatrix<Sophus::SO3d>> QwbSO3Sets;
     std::vector<vectorofEigenMatrix<Eigen::Matrix<double, 4, 1>>> QwbSets;
     std::vector<std::vector<double>> timeStampSets;
 
