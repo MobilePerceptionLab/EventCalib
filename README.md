@@ -1,8 +1,14 @@
 # Event Camera Calibration
 
-## Demo
+1. 'modules/camera_calibration/cv_calib' is the conventional camera calibration module.
+2. 'modules/camera_calibration/dbscan' is the DBSCAN cluster algorithm.
+3. 'modules/camera_calibration/event' is the base classes for events.
+4. 'modules/camera_calibration/event_camera_calib' is the proposed event camera calibration algorithm.
 
-1. Dynamic Event Camera Calibration [[1]](#1)
+## Usage
+1. Store the events into binary format described in modules/camera_calibration/event/tool/txt2bin.cpp.
+2. Modify config file, parameter/event-calibration-1101-seq01.yaml.
+2. Usage: unit_test_eventCameraCalib settingFilePath binFilePath SavePath
 
 ## References
 
