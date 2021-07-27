@@ -16,7 +16,7 @@
 		To use an input video  -> give the path of the input video, like "/tmp/x.avi"
 		To use an image list   -> give the path to the XML or YAML file containing the list of the images, like "/tmp/circles_list.xml"
 		-->
-  <Input>"/home/huangkun/Seafile/Dataset/cvpr21_calibration/1104/fisheye2/image"</Input>
+  <Input>"/home/huangkun/Seafile/Dataset/cvpr21_calibration/1101/seq_01/images"</Input>
   <!--  If true (non-zero) we flip the input images around the horizontal axis.-->
   <Input_FlipAroundHorizontalAxis>0</Input_FlipAroundHorizontalAxis>
   
@@ -51,6 +51,7 @@
   <Fix_K4>1</Fix_K4>
   <!-- If true (non-zero) distortion coefficient k5 will be equals to zero.-->
   <Fix_K5>1</Fix_K5>
+  <!-- For result compare with conventional camera calibration-->
   <camera_matrix type_id="opencv-matrix">
     <rows>3</rows>
     <cols>3</cols>

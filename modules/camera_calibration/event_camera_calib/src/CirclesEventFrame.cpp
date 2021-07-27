@@ -75,7 +75,7 @@ bool opengv2::CirclesEventFrame::extractFeatures() {
     auto camera = dynamic_cast<CameraBase *>(sensor_.get());
     image_ = cv::Mat(camera->size()[1], camera->size()[0], CV_8UC3, cv::Vec3b(0, 0, 0));
 
-    /*//debug
+    //debug
     eventImage = image_.clone();
     for (const Eigen::Vector2d &p: positiveEvents_) {
         cv::Point loc(p[0], p[1]);
@@ -84,7 +84,7 @@ bool opengv2::CirclesEventFrame::extractFeatures() {
     for (const Eigen::Vector2d &p: negativeEvents_) {
         cv::Point loc(p[0], p[1]);
         eventImage.at<cv::Vec3b>(loc) = cv::Vec3b(0, 255, 0);
-    }*/
+    }
 
     for (auto itr = p_clusters.begin(); itr != p_clusters.end();) {
         // remove cluster with too few samples
@@ -121,7 +121,7 @@ bool opengv2::CirclesEventFrame::extractFeatures() {
     pClusters_ = p_clusters;
 
     // debug
-    // clusterImage = image_.clone();
+    clusterImage = image_.clone();
 
     // too few events
     if (p_clusters.size() < pattern_->rows * pattern_->cols || n_clusters.size() < pattern_->rows * pattern_->cols) {

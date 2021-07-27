@@ -6,9 +6,16 @@
 4. 'modules/camera_calibration/event_camera_calib' is the proposed event camera calibration algorithm.
 
 ## Usage
-1. Store the events into binary format described in modules/camera_calibration/event/tool/txt2bin.cpp.
-2. Modify config file, parameter/event-calibration-1101-seq01.yaml.
-2. Usage: unit_test_eventCameraCalib settingFilePath binFilePath SavePath
+1. Store events in binary file, an event is represented as
+   ```
+    double timestamp; // second
+    double x;
+    double y;
+    bool polarity;
+   ```
+   There is an example in modules/camera_calibration/event/tool/txt2bin.cpp.
+2. Modify the config file. There is an example in parameter/event_calibration/example.yaml.
+3. Run: `unit_test_eventCameraCalib configFilePath binFilePath SaveDirPath`
 
 ## References
 

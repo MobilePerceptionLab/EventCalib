@@ -2,11 +2,18 @@
 #--------------------------------------------------------------------------------------------
 # Data Parameters
 #--------------------------------------------------------------------------------------------
+# Time where to begin (second)
 StartTime: 5
 
-# time for moving 1e-2 cm
-MotionTimeStep: 4e-4
+EndTime: 10
 
+# The smallest time step (second), the time span of virtual frame is its multiple.
+# It needs to be tuned w.r.t virtual frame image ('eventImage' in CirclesEventFrame),
+# (Note: Set multithreading thread num to 1, when debugging.
+# There are commented codes for debug in modules/camera_calibration/event_camera_calib/test/eventCameraCalib.cpp.)
+MotionTimeStep: 5e-4
+
+# Maximum event limit in a virtual frame, need to be tuned w.r.t virtual frame image ('eventImage' in CirclesEventFrame).
 FrameEventNumThreshold: 4000
 
 #--------------------------------------------------------------------------------------------
@@ -23,14 +30,14 @@ Is_Pattern_Asymmetric: 1
 BoardSize_Rows: 9
 BoardSize_Cols: 4
 
-# The size of a square in some user defined metric system (must be in cm, since it's assumed in velocity check)
+# The size of a square in the pattern (cm)
 Square_Size: 5.5
 
-# (cm) circles_radius = square_size/radius_rate
+# circles_radius (cm)
 Circles_Radius: 1.75
 
 #--------------------------------------------------------------------------------------------
-# OpenCV Calibration (Initialization) Parameters
+# OpenCV Calibration Parameters (Used in initialization)
 #--------------------------------------------------------------------------------------------
 Calibrate_NrOfFrameToUse: 200
 
@@ -55,40 +62,32 @@ Fix_K5: 1
 
 #--------------------------------------------------------------------------------------------
 # circle extraction parameters
+# can be tuned w.r.t virtual frame image ('clusterImage' in CirclesEventFrame)
 #--------------------------------------------------------------------------------------------
-# pixel unit
+# DBSCAN parameter: epsilon or in other words, radius (pixel unit)
 dbscan_eps: 4
 
+# DBSCAN parameter: minimal number of points in epsilon radius, then the point is cluster core point
 dbscan_startMinSample: 2
+
+# Minimum limit on number of samples in a cluster
 clusterMinSample: 5
 
-# k nearest neighbor for circle matching, only valid when fitCircle is true
+# k value of k nearest neighbor for circle matching, only valid when fitCircle is true.
 knn_num: 3
 
-# check circle fit or not, when there are lots of noise, set to false
+# Check circle fitting quality or not. When there are lots of noise, set to false(0).
 fitCircle: 0
 
 #--------------------------------------------------------------------------------------------
 # Spline Parameters
 #--------------------------------------------------------------------------------------------
-# use SO3 spline for rotation, if not the speed will two times faster,
-#  but the precision will be a bit lower for situation with much rotation changing
+# Use SO3 spline for rotation, if not the speed will two times faster,
+# but the precision will be a bit lower for situation with much faster rotation changing.
 useSO3: 0
 
+# Experimental features, not work for now. Just keep as false.
 reduceMap: 0
-
-#--------------------------------------------------------------------------------------------
-# DEBUG: for tuning time shift w.r.t GT
-#--------------------------------------------------------------------------------------------
-shiftTime: 0.1682
-
-#--------------------------------------------------------------------------------------------
-# Estimated Extrinsic parameter, and whether use them in hand-eye calibration
-# Qbs: x,y,z,w
-#--------------------------------------------------------------------------------------------
-calculateTbs: 1
-Qbs: [0, 0, 0, 1]
-tbs: [0,0,0]
 
 #--------------------------------------------------------------------------------------------
 # Viewer Parameters
@@ -103,4 +102,19 @@ Viewer.ViewpointX: 0
 Viewer.ViewpointY: -10
 Viewer.ViewpointZ: -0.1
 Viewer.ViewpointF: 2000
-Viewer.Facing: [1,0,0,0,1,0,0,0,1]
+Viewer.Facing: [ 1,0,0,0,1,0,0,0,1 ]
+
+#--------------------------------------------------------------------------------------------
+# Used in DEBUG: for tuning time shift w.r.t groundtruth trajectory for evaluation.
+# Not involved in calibration.
+#--------------------------------------------------------------------------------------------
+shiftTime: 0.1
+
+#--------------------------------------------------------------------------------------------
+# Estimated Extrinsic parameter
+# Qbs: x,y,z,w
+# Not involved in calibration.
+#--------------------------------------------------------------------------------------------
+calculateTbs: 1 # whether optimize in hand-eye calibration
+Qbs: [ 0, 0, 0, 1 ]
+tbs: [ 0,0,0 ]

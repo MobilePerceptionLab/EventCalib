@@ -80,12 +80,16 @@ public:
                         duration.second += motionTimeStep;
                     }
 
-                    /*// debug
+                    /*// DEBUG: Set 'threadNum = 1' and uncomment this code to tune parameters
                     std::cout << events_num << " events." << std::endl;
-                    if (frame->image().empty())
+                    if (frame->eventImage.empty())
                         continue;
-                    cv::namedWindow("Debug_check");
-                    cv::imshow("Debug_check", frame->image());
+                    cv::namedWindow("Debug_check: EventImage");
+                    cv::imshow("Debug_check: EventImage", frame->eventImage);
+                    //if (frame->clusterImage.empty())
+                    //    continue;
+                    //cv::namedWindow("Debug_check: clusterImage");
+                    //cv::imshow("Debug_check: clusterImage", frame->clusterImage);
                     cv::waitKey();*/
                 }
             }
