@@ -18,7 +18,7 @@
 3. Run: `unit_test_eventCameraCalib configFilePath binFilePath SaveDirPath`
 
 ## Video
-<iframe src="//player.bilibili.com/player.html?aid=804390506&bvid=BV1ey4y1j7Ke&cid=376015404&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="1280" height="720"> </iframe>
+[Experiments Video](https://www.bilibili.com/video/BV1ey4y1j7Ke)
 
 ## References
 
