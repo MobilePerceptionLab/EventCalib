@@ -17,6 +17,9 @@
 2. Modify the config file. There is an example in parameter/event_calibration/example.yaml.
 3. Run: `unit_test_eventCameraCalib configFilePath binFilePath SaveDirPath`
 
+## Video
+<iframe src="//player.bilibili.com/player.html?aid=804390506&bvid=BV1ey4y1j7Ke&cid=376015404&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="1280" height="720"> </iframe>
+
 ## References
 
 <a id="1">[1]</a>
