@@ -154,6 +154,7 @@ bool opengv2::EventCalibSpline::optimize() {
             frameSearchingTree(1, timeStamps);
 
     // pre-calculate spline basis
+    relationContainer_.reserve(eventContainer_->container.size() / 3);
     for (int i = 0; i < twbSplines_.size(); ++i) {
         for (auto itr = eventContainer_->container.lower_bound(twbSplines_[i].getCorrespondingUs().front());
              itr != eventContainer_->container.upper_bound(twbSplines_[i].getCorrespondingUs().back()); /**/ itr++) {
@@ -202,9 +203,9 @@ bool opengv2::EventCalibSpline::optimize() {
         const auto &tSpanIdx = relation.tSpanIdx;
         if (useSO3_) {
             ceres::CostFunction *cost_function = CalibReprojectionError_SO3::Create(
-                    relation.obs,
-                    relation.lm, circleRadius_,
-                    Qbs, tbs,
+                    &relation.obs,
+                    &relation.lm, &circleRadius_,
+                    &Qbs, &tbs,
                     relation.rBasis, relation.tBasis);
             problem.AddResidualBlock(cost_function, huber, intrinsics_.data(),
                                      QwbSO3Splines_[splineIdx].controlPoints()[rSpanIdx - 3 + 0].data(),
@@ -217,9 +218,9 @@ bool opengv2::EventCalibSpline::optimize() {
                                      twbSplines_[splineIdx].getCP()[tSpanIdx - 3 + 3].data());
         } else {
             ceres::CostFunction *cost_function = CalibReprojectionError::Create(
-                    relation.obs,
-                    relation.lm, circleRadius_,
-                    Qbs, tbs,
+                    &relation.obs,
+                    &relation.lm, &circleRadius_,
+                    &Qbs, &tbs,
                     relation.rBasis, relation.tBasis);
             problem.AddResidualBlock(cost_function, huber, intrinsics_.data(),
                                      QwbSplines_[splineIdx].getCP()[rSpanIdx - 3 + 0].data(),

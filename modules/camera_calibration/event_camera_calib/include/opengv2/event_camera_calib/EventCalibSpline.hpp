@@ -65,9 +65,9 @@ namespace opengv2 {
         struct CalibReprojectionError_SO3 {
             EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-            CalibReprojectionError_SO3(const Eigen::Vector2d &obs,
-                                       const Eigen::Vector3d &lm, const double &radius,
-                                       const Eigen::Quaterniond &Qbs, const Eigen::Vector3d &tbs,
+            CalibReprojectionError_SO3(const Eigen::Vector2d *obs,
+                                       const Eigen::Vector3d *lm, const double *radius,
+                                       const Eigen::Quaterniond *Qbs, const Eigen::Vector3d *tbs,
                                        std::shared_ptr<std::vector<std::vector<double>>> rBasis,
                                        std::shared_ptr<std::vector<std::vector<double>>> tBasis)
                     : obs_(obs), lm_(lm), Qbs_(Qbs), tbs_(tbs), radius_(radius), rBasis_(rBasis), tBasis_(tBasis) {}
@@ -111,7 +111,7 @@ namespace opengv2 {
                 unDistort(focal_length_x, focal_length_y,
                           principal_point_x, principal_point_y,
                           k1, k2, k3, k4, k5,
-                          obs_, Xc);
+                          *obs_, Xc);
 
                 Eigen::Quaternion<T> Qws = Qwb.unit_quaternion() /* * Qbs_.cast<T>() */; // since Tsb is identity.
                 Sophus::Vector3<T> tws = /* Qwb.unit_quaternion() * tbs_.cast<T>() + */ twb;
@@ -130,14 +130,14 @@ namespace opengv2 {
                 Xc *= depth;
 
                 Sophus::Vector3<T> Xw = Qws * Xc + tws;
-                residuals[0] = (Xw - lm_).norm() - radius_;
+                residuals[0] = (Xw - *lm_).norm() - *radius_;
                 return true;
             }
 
             static ceres::CostFunction *
-            Create(const Eigen::Vector2d &obs,
-                   const Eigen::Vector3d &lm, const double &radius,
-                   const Eigen::Quaterniond &Qbs, const Eigen::Vector3d &tbs,
+            Create(const Eigen::Vector2d *obs,
+                   const Eigen::Vector3d *lm, const double *radius,
+                   const Eigen::Quaterniond *Qbs, const Eigen::Vector3d *tbs,
                    std::shared_ptr<std::vector<std::vector<double>>> rBasis,
                    std::shared_ptr<std::vector<std::vector<double>>> tBasis) {
                 return (new ceres::AutoDiffCostFunction<CalibReprojectionError_SO3, 1, 9,
@@ -145,12 +145,12 @@ namespace opengv2 {
                         3, 3, 3, 3>(new CalibReprojectionError_SO3(obs, lm, radius, Qbs, tbs, rBasis, tBasis)));
             }
 
-            const Eigen::Vector2d &obs_;
-            const Eigen::Vector3d &lm_;
-            const Eigen::Quaterniond &Qbs_;
-            const Eigen::Vector3d &tbs_;
+            const Eigen::Vector2d *obs_;
+            const Eigen::Vector3d *lm_;
+            const Eigen::Quaterniond *Qbs_;
+            const Eigen::Vector3d *tbs_;
 
-            const double &radius_;
+            const double *radius_;
 
             std::shared_ptr<std::vector<std::vector<double>>> rBasis_, tBasis_; // rBasis_: \beta_{k, k-p+j}, j \in [1, p].
         };
@@ -158,9 +158,9 @@ namespace opengv2 {
         struct CalibReprojectionError {
             EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-            CalibReprojectionError(const Eigen::Vector2d &obs,
-                                   const Eigen::Vector3d &lm, const double &radius,
-                                   const Eigen::Quaterniond &Qbs, const Eigen::Vector3d &tbs,
+            CalibReprojectionError(const Eigen::Vector2d *obs,
+                                   const Eigen::Vector3d *lm, const double *radius,
+                                   const Eigen::Quaterniond *Qbs, const Eigen::Vector3d *tbs,
                                    std::shared_ptr<std::vector<std::vector<double>>> rBasis,
                                    std::shared_ptr<std::vector<std::vector<double>>> tBasis)
                     : obs_(obs), lm_(lm), Qbs_(Qbs), tbs_(tbs), radius_(radius), rBasis_(rBasis), tBasis_(tBasis) {}
@@ -205,7 +205,7 @@ namespace opengv2 {
                 unDistort(focal_length_x, focal_length_y,
                           principal_point_x, principal_point_y,
                           k1, k2, k3, k4, k5,
-                          obs_, Xc);
+                          *obs_, Xc);
 
                 Eigen::Quaternion<T> Qws = Qwb /* * Qbs_.cast<T>() */; // since Tsb is identity.
                 Sophus::Vector3<T> tws = /* Qwb * tbs_.cast<T>() + */ twb;
@@ -224,14 +224,14 @@ namespace opengv2 {
                 Xc *= depth;
 
                 Sophus::Vector3<T> Xw = Qws * Xc + tws;
-                residuals[0] = (Xw - lm_).norm() - radius_;
+                residuals[0] = (Xw - *lm_).norm() - *radius_;
                 return true;
             }
 
             static ceres::CostFunction *
-            Create(const Eigen::Vector2d &obs,
-                   const Eigen::Vector3d &lm, const double &radius,
-                   const Eigen::Quaterniond &Qbs, const Eigen::Vector3d &tbs,
+            Create(const Eigen::Vector2d *obs,
+                   const Eigen::Vector3d *lm, const double *radius,
+                   const Eigen::Quaterniond *Qbs, const Eigen::Vector3d *tbs,
                    std::shared_ptr<std::vector<std::vector<double>>> rBasis,
                    std::shared_ptr<std::vector<std::vector<double>>> tBasis) {
                 return (new ceres::AutoDiffCostFunction<CalibReprojectionError, 1, 9,
@@ -239,12 +239,12 @@ namespace opengv2 {
                         3, 3, 3, 3>(new CalibReprojectionError(obs, lm, radius, Qbs, tbs, rBasis, tBasis)));
             }
 
-            const Eigen::Vector2d &obs_;
-            const Eigen::Vector3d &lm_;
-            const Eigen::Quaterniond &Qbs_;
-            const Eigen::Vector3d &tbs_;
+            const Eigen::Vector2d *obs_;
+            const Eigen::Vector3d *lm_;
+            const Eigen::Quaterniond *Qbs_;
+            const Eigen::Vector3d *tbs_;
 
-            const double &radius_;
+            const double *radius_;
 
             std::shared_ptr<std::vector<std::vector<double>>> rBasis_, tBasis_;
         };
